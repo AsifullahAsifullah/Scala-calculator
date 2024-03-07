@@ -4,7 +4,7 @@ pipeline {
         stage('Compile') {
             steps {
                 echo "Compile Project"
-                sh "sbt compile"
+                sh "/home/asif/.sdkman/candidates/sbt/current/bin/sbt compile"
             }
         }
     }
