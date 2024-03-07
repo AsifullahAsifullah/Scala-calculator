@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sbt compile'
+                echo "Build Image"
+                sh "/var/lib/jenkins/plugins/sbt compile"
             }
         }
     }
