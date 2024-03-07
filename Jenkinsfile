@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Compile') {
+        stage('Build') {
             steps {
-                echo "Compile Project"
-                sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'}/bin/sbt  compile"
+                echo "Build Image"
+                sh "/var/lib/jenkins/plugins/sbt/WEB-INF/lib/sbt.jar  buildDockerImage"
             }
         }
     }
