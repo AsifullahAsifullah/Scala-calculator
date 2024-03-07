@@ -9,7 +9,7 @@ pipeline {
         stage('Compiling') {
             steps {
                 echo "Running Project"
-                sh "sbt compile"
+                sh "sudo sbt compile"
             }
         }
         
