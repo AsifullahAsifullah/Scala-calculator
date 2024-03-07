@@ -28,4 +28,18 @@ pipeline {
         // }
         
     }
+
+    post {
+        always {
+            // Archive Scapegoat reports
+            archiveArtifacts artifacts: '**/scapegoat.xml'
+        }
+        success {
+            echo "Build successful"
+        }
+        failure {
+            echo "Build failed due to Scapegoat errors or warnings"
+            currentBuild.result = 'FAILURE'
+        }
+    }
 }
