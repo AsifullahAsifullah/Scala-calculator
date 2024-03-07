@@ -1,11 +1,15 @@
 pipeline {
     agent any
-    
+
+    environment {
+     SBT_HOME="${tool 'sbt'}"
+     PATH="${env.SBT_HOME}/bin:${env.PATH}"
+}
     stages {
         stage('Compiling') {
             steps {
                 echo "Running Project"
-                sh "sudo /var/lib/jenkins/plugins/sbt/WEB-INF/lib/sbt.jar compile"
+                sh "sbt compile"
             }
         }
         
