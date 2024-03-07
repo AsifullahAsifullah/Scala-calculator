@@ -1,6 +1,10 @@
 pipeline {
     agent any
-
+    
+ tools {
+        sbt 'sbt'
+    }
+    
     stages {
         stage('Build') {
             steps {
