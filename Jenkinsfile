@@ -6,10 +6,10 @@ pipeline {
     }
     
     stages {
-        stage('Build') {
+        stage('Compile') {
             steps {
-                echo "Build Image"
-                sh "/var/lib/jenkins/plugins/sbt/WEB-INF/lib/sbt.jar  buildDockerImage"
+                echo "Compile Project"
+                sh "sbt compile"
             }
         }
     }
