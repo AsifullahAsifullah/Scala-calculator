@@ -2,11 +2,26 @@ pipeline {
     agent any
     
     stages {
-        stage('Compile') {
+        stage('Compiling') {
             steps {
-                echo "Compile Project"
-                sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt compile"
+                echo "Running Project"
+                sh "sudo /var/lib/jenkins/plugins/sbt compile"
             }
         }
+        
+        // stage('Running') {
+        //     steps {
+        //         echo "Running Project"
+        //         sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt run"
+        //     }
+        // }
+
+        // stage('Runing') {
+        //     steps {
+        //         echo "Runing Project"
+        //         sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt run"
+        //     }
+        // }
+        
     }
 }
