@@ -5,7 +5,7 @@ pipeline {
         stage('Compiling') {
             steps {
                 echo "Running Project"
-                sh "sudo /var/lib/jenkins/plugins/sbt compile"
+                sh "sudo /var/lib/jenkins/plugins/sbt/WEB-INF/lib/sbt.jar compile"
             }
         }
         
