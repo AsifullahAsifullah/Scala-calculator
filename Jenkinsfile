@@ -7,9 +7,14 @@ pipeline {
       steps {
         echo "Running scapegoat"
         sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat"
-        recordIssues(
-          tools: [scapegoat(pattern: '/var/lib/jenkins/workspace/calculator/target/scala-2.13/scapegoat-report/scapegoat-scalastyle.xml')]
-        )
+        // Use SBT plugin to run scapegoatCompile
+
+                    // Check for warnings (modify condition if needed)
+                    if (sh(returnStatus: true, script: 'sbt last exited :: 0').trim() != '0') {
+                        error 'Scapegoat analysis found warnings. Fix them before proceeding.'
+                    } else {
+                        echo 'Scapegoat analysis successful (no warnings).'
+                    }
       }
     }
   }
