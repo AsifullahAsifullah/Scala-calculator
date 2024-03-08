@@ -49,9 +49,9 @@ pipeline {
       steps {
         echo "Running scapegoat"
         script {
-          def scapegoatExitCode = sh(script: "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat", returnStatus: true)
-          // Check if the exit code is non-zero, indicating errors or warnings
-          if (scapegoatExitCode != 0) {
+          def scapegoatOutput = sh(script: "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat", returnStdout: true).trim()
+          // Check if scapegoat output contains the warning string
+          if (scapegoatOutput.contains("[warn]")) {
             error "Scapegoat found issues. Failing the build."
           }
         }
@@ -59,4 +59,5 @@ pipeline {
     }
   }
 }
+
 
