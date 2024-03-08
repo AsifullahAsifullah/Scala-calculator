@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-     SBT_HOME="${tool 'sbt'}"
+     SBT_HOME="${tool '1.9.6'}"
      PATH="${env.SBT_HOME}/bin:${env.PATH}"
 }
     stages {
