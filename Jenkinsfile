@@ -1,30 +1,24 @@
 pipeline {
     agent any
 
-//     environment {
-//      SBT_HOME="${tool '1.9.6'}"
-//      PATH="${env.SBT_HOME}/bin:${env.PATH}"
-// }
     stages {
-        stage('Compiling') {
+        stage('Static Analysis') {
             steps {
-                echo "Running Project"
-                sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder_SbtInstallation'}/sbt/bin/sbt compile"
+                echo "Running scapegoat"
+                sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat"
             }
         }
-        
-        // stage('Running') {
-        //     steps {
-        //         echo "Running Project"
-        //         sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt run"
-        //     }
-        // }
-
-        // stage('Runing') {
-        //     steps {
-        //         echo "Runing Project"
-        //         sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt run"
-        //     }
-        // }
     }
+    post {
+        always {
+            // Archive the Scapegoat report
+            archiveArtifacts artifacts: '**/target/scala-2.13/scapegoat-report/scapegoat-scalastyle.xml'
+            // Parse the Scapegoat report and fail the build if there are any warnings
+            recordIssues(
+                tools: [scapegoat(pattern: '**/target/scala-2.13/scapegoat-report/scapegoat-scalastyle.xml')],
+                thresholdLimit: 'high',
+                healthy: '',
+                unhealthy: '100'
+            )
+        }
 }
