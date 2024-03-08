@@ -1,15 +1,15 @@
 pipeline {
     agent any
 
-    environment {
-     SBT_HOME="${tool '1.9.6'}"
-     PATH="${env.SBT_HOME}/bin:${env.PATH}"
-}
+//     environment {
+//      SBT_HOME="${tool '1.9.6'}"
+//      PATH="${env.SBT_HOME}/bin:${env.PATH}"
+// }
     stages {
         stage('Compiling') {
             steps {
                 echo "Running Project"
-                sh "1.9.6 compile"
+                sh "${tool name: 'sbt', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder_SbtInstallation'}/sbt/bin/sbt compile"
             }
         }
         
