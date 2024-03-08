@@ -1,7 +1,7 @@
 import FactoryLogger.logger
 
 object Calculator extends App{
-    var z = null
+    // var z = null
 
   sealed trait Calculator {
     def performCalculation:Int
