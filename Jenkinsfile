@@ -5,9 +5,11 @@ pipeline {
   stages {
     stage('Static Analysis') {
       steps {
-        echo "Running scapegoat"
-        sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat"
-        // Use SBT plugin to run scapegoatCompile
+        // echo "Running scapegoat"
+        // sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat"
+        script {
+                    // Use SBT plugin to run scapegoatCompile
+                     sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat"
 
                     // Check for warnings (modify condition if needed)
                     if (sh(returnStatus: true, script: 'sbt last exited :: 0').trim() != '0') {
@@ -15,6 +17,7 @@ pipeline {
                     } else {
                         echo 'Scapegoat analysis successful (no warnings).'
                     }
+                }
       }
     }
   }
