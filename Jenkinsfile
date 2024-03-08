@@ -9,7 +9,7 @@ pipeline {
         stage('Compiling') {
             steps {
                 echo "Running Project"
-                sh "sbt compile"
+                sh "1.9.6 compile"
             }
         }
         
