@@ -5,20 +5,28 @@ pipeline {
   stages {
     stage('Static Analysis') {
       steps {
-        // echo "Running scapegoat"
-        // sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat"
-        script {
-                    // Use SBT plugin to run scapegoatCompile
-                     sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat"
+        echo "Running scapegoat"
+        sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat"
+        // script {
+        //             // Use SBT plugin to run scapegoatCompile
+        //              sh "sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt scapegoat"
 
-                    // Check for warnings (modify condition if needed)
-                    if (sh(returnStatus: true, script: 'sudo /home/asif/.sdkman/candidates/sbt/current/bin/sbt last exited :: 0') != '0') {
-                        error 'Scapegoat analysis found warnings. Fix them before proceeding.'
-                    } else {
-                        echo 'Scapegoat analysis successful (no warnings).'
-                    }
-                }
+        //             // Check for warnings (modify condition if needed)
+        //             if (sh(returnStatus: true, script: 'sbt last exited :: 0') != '0') {
+        //                 error 'Scapegoat analysis found warnings. Fix them before proceeding.'
+        //             } else {
+        //                 echo 'Scapegoat analysis successful (no warnings).'
+        //             }
+        //         }
       }
     }
   }
+  post {
+        always {
+            junit '**/target/*.xml'
+        }
+        failure {
+            echo 'Failed With Warning'
+        }
+    }
 }
