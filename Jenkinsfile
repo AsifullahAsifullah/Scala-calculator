@@ -23,7 +23,7 @@ pipeline {
   }
   post {
         always {
-            junit '**/target/*.xml'
+            junit '/var/lib/jenkins/workspace/calculator/target/scala-2.13/scapegoat-report/scapegoat.xml'
         }
         failure {
             echo 'Failed With Warning'
